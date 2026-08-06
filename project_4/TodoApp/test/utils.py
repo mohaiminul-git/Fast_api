@@ -21,7 +21,7 @@ def override_get_session():
         yield session
         
 
-def override_get_currenr_user():
+def override_get_current_user():
     return{'username':'codingwithsqlmodel','id':1,'role':'admin'}
 
 

@@ -1,3 +1,4 @@
+
 from .utils import *
 from ..database import get_session
 from ..routers.auth import authenticate_user, get_current_user, create_access_token, SECRET_KEY, ALGORITHM
@@ -10,10 +11,10 @@ from fastapi import status
 
 
 app.dependency_overrides[get_session] = override_get_session
-app.dependency_overrides[get_current_user] = override_get_currenr_user
+app.dependency_overrides[get_current_user] = override_get_current_user
 
 def test_read_todo(test_todo):
-    response = client.get("/")
+    response = client.get("/todos/")
     assert response.status_code == status.HTTP_200_OK
     assert response.json() == [
         {
@@ -28,7 +29,7 @@ def test_read_todo(test_todo):
     
 
 def test_read_todo_by_id(test_todo):
-    response= client.get("/todo/1")
+    response= client.get("/todos/todo/1")
     assert response.status_code==status.HTTP_200_OK
     assert response.json() ==  {
     "id": 1,
@@ -41,7 +42,7 @@ def test_read_todo_by_id(test_todo):
     
 
 def test_read_one_authenticated_not_found():
-    response = client.get("/todo/999")
+    response = client.get("/todos/todo/999")
     assert response.status_code == 400
     assert response.json() == {'detail': "Authentication Error"}
     
@@ -54,7 +55,7 @@ def test_create_todo(test_todo):
         'complete': False,
     }
 
-    response= client.post("/todo", json=request_data)
+    response= client.post("/todos/todo", json=request_data)
     assert response.status_code == 201
     with Session(engine) as db:
         model = db.exec(select(Todos).where(Todos.id == 2)).first()
@@ -73,7 +74,7 @@ def test_update_todo(test_todo):
         'complete': False,
     }
 
-    response = client.put('/todo/1', json=request_data)
+    response = client.put('/todos/todo/1', json=request_data)
     assert response.status_code == 204
     with Session(engine) as db:
         model = db.exec(select(Todos).where(Todos.id == 1)).first()
@@ -81,7 +82,7 @@ def test_update_todo(test_todo):
     assert model.title == 'Change the title of the todo already saved!'
     
 def test_delete_todo(test_todo):
-    response = client.delete('/todo/1')
+    response = client.delete('/todos/todo/1')
     assert response.status_code == 204
     with Session(engine) as db:
         model = db.exec(select(Todos).where(Todos.id == 1)).first()
@@ -89,7 +90,7 @@ def test_delete_todo(test_todo):
 
 
 def test_delete_todo_not_found():
-    response = client.delete('/todo/999')
+    response = client.delete('/todos/todo/999')
     assert response.status_code == 404
     assert response.json() == {'detail': 'Todo not found'}
 

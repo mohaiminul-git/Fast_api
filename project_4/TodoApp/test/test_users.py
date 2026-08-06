@@ -14,7 +14,7 @@ from fastapi import status
 
 
 app.dependency_overrides[get_session] = override_get_session
-app.dependency_overrides[get_current_user] = override_get_currenr_user
+app.dependency_overrides[get_current_user] = override_get_current_user
 
 
 def test_read_user(test_user):
@@ -26,7 +26,7 @@ def test_read_user(test_user):
     assert response.json().get('last_name') == "random"
     assert response.json().get('phone_number') == "+4917687807049"
     
-def test_change_passwoord(test_user):
+def test_change_password(test_user):
     request_data={
         'password': 'testpassword',
         'new_password':'newpassword'
