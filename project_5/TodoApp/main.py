@@ -1,17 +1,17 @@
 from fastapi import FastAPI, Request, status
 from fastapi.responses import RedirectResponse
 from fastapi.staticfiles import StaticFiles
-from TodoApp.models import Users, Todos
+from .models import Users, Todos
 from sqlmodel import Field, Session, SQLModel
-from TodoApp.routers import auth,users,todos,admin
-from TodoApp.database import engine
+from .routers import auth,users,todos,admin
+from .database import engine
 
 app = FastAPI()
 
 SQLModel.metadata.create_all(engine)
 
 
-app.mount("/static", StaticFiles(directory="./static"), name="static")
+app.mount("/static", StaticFiles(directory="TodoApp/static"), name="static")
 
 
 @app.get("/")

@@ -13,8 +13,8 @@ from fastapi import status
 from fastapi.templating import Jinja2Templates
 
 
-templates = Jinja2Templates(directory="./templates")
-print(type(templates))
+templates = Jinja2Templates(directory="TodoApp/templates")
+
 
 router= APIRouter(
     prefix="/auth",
@@ -41,9 +41,6 @@ class Token(BaseModel):
     access_token:str
     token_type: str
     
-templates = Jinja2Templates(directory="./templates") 
-print(type(templates))
-
 ### Pages ###
 
 @router.get("/login-page")

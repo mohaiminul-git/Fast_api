@@ -57,6 +57,10 @@ BOOKS = [
     Book(6, 'HP3', 'Author 3', 'Book Description', 1, 2026)
 ]
 
+@app.get("/", status_code=status.HTTP_200_OK)
+def home():
+    return {"message": "Hello World. Welcome to the FastAPI Books API! go to /docs to see the API documentation."}
+
 
 @app.get("/books", status_code=status.HTTP_200_OK)
 def show_the_books():

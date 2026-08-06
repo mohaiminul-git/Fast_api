@@ -1,6 +1,7 @@
 from fastapi import FastAPI, Body, Path, HTTPException, Query
 from typing import Annotated
 
+
 app = FastAPI()
 
 
@@ -13,6 +14,12 @@ BOOKS = [
     {'title': 'Title Five', 'author': 'Author Five', 'category': 'math'},
     {'title': 'Title Six', 'author': 'Author Two', 'category': 'math'}
 ]
+
+@app.get("/")
+def home():
+    return {"message": "Hello World. Welcome to the FastAPI Books API! go to /docs to see the API documentation."}
+
+
 
 @app.get("/books")
 async def real_all_books():
@@ -28,7 +35,7 @@ async def read_book(book_title: Annotated[str,Path(title="The title of the Book"
     
 @app.get("/books/")
 async def read_books_by_category(
-    category: Annotated[str,Query(description= "the category of the books", example="science")]):
+    category: Annotated[str,Query(description= "the category of the books", openapi_examples="science")]):
     list_of_books = []
     for book in BOOKS:
         if book.get('category').casefold() == category.casefold():

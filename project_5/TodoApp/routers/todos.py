@@ -11,7 +11,7 @@ from fastapi.templating import Jinja2Templates
 from starlette.responses import RedirectResponse
 
 
-templates = Jinja2Templates(directory= "./templates")
+templates = Jinja2Templates(directory= "TodoApp/templates")
 
 
 
@@ -41,7 +41,6 @@ async def render_todo_page(request: Request, db: SessionDep):
 
     user = await get_current_user_from_cookie(request)  
 
-    print("USER:", user)
     if user is None:
         return redirect_to_login()
     try:
@@ -51,7 +50,6 @@ async def render_todo_page(request: Request, db: SessionDep):
             )
         ).all()
 
-        print("TODOS:", todos)
         return templates.TemplateResponse(
         request=request,
         name="todo.html",

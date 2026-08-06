@@ -8,10 +8,10 @@ app = FastAPI()
 
 SQLModel.metadata.create_all(engine)
 
+@app.get("/")
+async def root():
+    return {"message": "Hello. Welcome to the FastAPI TodoApp! go to /docs to see the API documentation."}
 
-@app.get("/health")
-def health_check():
-    return {"status": "healthy"}
 
 app.include_router(auth.router)
 app.include_router(users.router)
