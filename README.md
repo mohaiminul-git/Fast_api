@@ -96,7 +96,7 @@ Topics covered include:
 - Pydantic models
 - Routing with `APIRouter`
 - JWT authentication
-- SQLModel/SQLAlchemy
+- SQLModel
 - Alembic database migrations
 - API testing with Pytest
 - Jinja templates
