@@ -1,4 +1,4 @@
-# FastAPI Learning Journey
+# FastAPI 
 
 This repository documents my FastAPI learning journey through a series of progressively more advanced projects. Each project builds on the previous one, introducing new concepts and increasing in complexity.
 
